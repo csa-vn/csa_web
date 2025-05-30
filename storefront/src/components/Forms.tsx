@@ -15,7 +15,6 @@ import {
 } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
-import CountrySelect from "@modules/checkout/components/country-select"
 
 export type FormProps<T extends z.ZodTypeAny> = UseFormProps<z.infer<T>> & {
   schema: T
@@ -253,47 +252,6 @@ export const InputField: React.FC<InputFieldProps> = ({
         type={type}
         aria-invalid={Boolean(fieldState.error)}
       />
-      {fieldState.error && (
-        <div className="pt-2 text-red-900 text-small-regular">
-          <span>{fieldState.error.message}</span>
-        </div>
-      )}
-    </div>
-  )
-}
-
-export interface CountrySelectFieldProps {
-  className?: string
-  name: string
-  label?: string
-  selectProps?: Omit<
-    React.ComponentProps<typeof CountrySelect>,
-    "name" | "id" | keyof ControllerRenderProps
-  >
-  isRequired?: boolean
-  children?: React.ReactNode
-}
-
-export const CountrySelectField: React.FC<CountrySelectFieldProps> = ({
-  className,
-  name,
-  selectProps,
-  children,
-}) => {
-  const { field, fieldState } = useController<{ __name__: string }, "__name__">(
-    { name: name as "__name__" }
-  )
-
-  return (
-    <div className={className}>
-      <CountrySelect
-        {...selectProps}
-        {...field}
-        selectedKey={field.value ?? ""}
-        name={name}
-      >
-        {children}
-      </CountrySelect>
       {fieldState.error && (
         <div className="pt-2 text-red-900 text-small-regular">
           <span>{fieldState.error.message}</span>

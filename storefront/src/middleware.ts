@@ -11,41 +11,41 @@ const regionMapCache = {
   regionMapUpdated: Date.now(),
 }
 
-async function getRegionMap() {
-  const { regionMap, regionMapUpdated } = regionMapCache
+// async function getRegionMap() {
+//   const { regionMap, regionMapUpdated } = regionMapCache
 
-  if (
-    !regionMap.keys().next().value ||
-    regionMapUpdated < Date.now() - 3600 * 1000
-  ) {
-    console.log({ PUBLISHABLE_API_KEY })
-    // Fetch regions from Medusa. We can't use the JS client here because middleware is running on Edge and the client needs a Node environment.
-    const { regions } = await fetch(`${BACKEND_URL}/store/regions`, {
-      headers: {
-        "x-publishable-api-key": PUBLISHABLE_API_KEY!,
-      },
-      next: {
-        revalidate: 3600,
-        tags: ["regions"],
-      },
-    }).then((res) => res.json())
+//   if (
+//     !regionMap.keys().next().value ||
+//     regionMapUpdated < Date.now() - 3600 * 1000
+//   ) {
+//     console.log({ PUBLISHABLE_API_KEY })
+//     // Fetch regions from Medusa. We can't use the JS client here because middleware is running on Edge and the client needs a Node environment.
+//     const { regions } = await fetch(`${BACKEND_URL}/store/regions`, {
+//       headers: {
+//         "x-publishable-api-key": PUBLISHABLE_API_KEY!,
+//       },
+//       next: {
+//         revalidate: 3600,
+//         tags: ["regions"],
+//       },
+//     }).then((res) => res.json())
 
-    if (!regions?.length) {
-      notFound()
-    }
+//     if (!regions?.length) {
+//       notFound()
+//     }
 
-    // Create a map of country codes to regions.
-    regions.forEach((region: HttpTypes.StoreRegion) => {
-      region.countries?.forEach((c) => {
-        regionMapCache.regionMap.set(c.iso_2 ?? "", region)
-      })
-    })
+//     // Create a map of country codes to regions.
+//     regions.forEach((region: HttpTypes.StoreRegion) => {
+//       region.countries?.forEach((c) => {
+//         regionMapCache.regionMap.set(c.iso_2 ?? "", region)
+//       })
+//     })
 
-    regionMapCache.regionMapUpdated = Date.now()
-  }
+//     regionMapCache.regionMapUpdated = Date.now()
+//   }
 
-  return regionMapCache.regionMap
-}
+//   return regionMapCache.regionMap
+// }
 
 /**
  * Fetches regions from Medusa and sets the region cookie.
@@ -90,33 +90,33 @@ async function getCountryCode(
  * Middleware to handle region selection and onboarding status.
  */
 export async function middleware(request: NextRequest) {
-  const regionMap = await getRegionMap()
-  const countryCode = regionMap && (await getCountryCode(request, regionMap))
+  // const regionMap = await getRegionMap()
+  // const countryCode = regionMap && (await getCountryCode(request, regionMap))
 
-  const urlHasCountryCode =
-    countryCode && request.nextUrl.pathname.split("/")[1].includes(countryCode)
+  // const urlHasCountryCode =
+  //   countryCode && request.nextUrl.pathname.split("/")[1].includes(countryCode)
 
-  // check if one of the country codes is in the url
-  if (urlHasCountryCode) {
-    return NextResponse.next()
-  }
+  // // check if one of the country codes is in the url
+  // if (urlHasCountryCode) {
+  //   return NextResponse.next()
+  // }
 
-  const redirectPath =
-    request.nextUrl.pathname === "/" ? "" : request.nextUrl.pathname
+  // const redirectPath =
+  //   request.nextUrl.pathname === "/" ? "" : request.nextUrl.pathname
 
-  const queryString = request.nextUrl.search ? request.nextUrl.search : ""
+  // const queryString = request.nextUrl.search ? request.nextUrl.search : ""
 
-  let redirectUrl = request.nextUrl.href
+  // let redirectUrl = request.nextUrl.href
 
-  let response = NextResponse.redirect(redirectUrl, 307)
+  // let response = NextResponse.redirect(redirectUrl, 307)
 
-  // If no country code is set, we redirect to the relevant region.
-  if (!urlHasCountryCode && countryCode) {
-    redirectUrl = `${request.nextUrl.origin}/${countryCode}${redirectPath}${queryString}`
-    response = NextResponse.redirect(`${redirectUrl}`, 307)
-  }
+  // // If no country code is set, we redirect to the relevant region.
+  // if (!urlHasCountryCode && countryCode) {
+  //   redirectUrl = `${request.nextUrl.origin}/${countryCode}${redirectPath}${queryString}`
+  //   response = NextResponse.redirect(`${redirectUrl}`, 307)
+  // }
 
-  return response
+  // return response
 }
 
 export const config = {

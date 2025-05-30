@@ -11,7 +11,7 @@ import {
   UiSelectValue,
 } from "@/components/ui/Select"
 import { useCountryCode } from "hooks/country-code"
-import { useUpdateRegion } from "hooks/cart"
+// import { useUpdateRegion } from "hooks/cart"
 import { withReactQueryProvider } from "@lib/util/react-query"
 
 export const RegionSwitcher = withReactQueryProvider<{
@@ -34,7 +34,7 @@ export const RegionSwitcher = withReactQueryProvider<{
     const countryCode = useCountryCode(countryOptions)
     let currentPath = pathName
 
-    const updateRegion = useUpdateRegion()
+    // const updateRegion = useUpdateRegion()
 
     if (countryCode) {
       currentPath = pathName.split(`/${countryCode}`)[1]
@@ -43,9 +43,9 @@ export const RegionSwitcher = withReactQueryProvider<{
     return (
       <ReactAria.Select
         selectedKey={`${countryCode}`}
-        onSelectionChange={(key) => {
-          updateRegion.mutate({ countryCode: `${key}`, currentPath })
-        }}
+        // onSelectionChange={(key) => {
+        //   updateRegion.mutate({ countryCode: `${key}`, currentPath })
+        // }}
         className={className}
         aria-label="Select country"
       >

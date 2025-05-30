@@ -14,10 +14,10 @@ const LoginLink = dynamic(
   { loading: () => <></> }
 )
 
-const CartDrawer = dynamic(
-  () => import("@/components/CartDrawer").then((mod) => mod.CartDrawer),
-  { loading: () => <></> }
-)
+// const CartDrawer = dynamic(
+//   () => import("@/components/CartDrawer").then((mod) => mod.CartDrawer),
+//   { loading: () => <></> }
+// )
 
 export const Header: React.FC = async () => {
   const regions = await listRegions()
@@ -58,11 +58,11 @@ export const Header: React.FC = async () => {
                   <SearchField countryOptions={countryOptions} />
                 </React.Suspense>
                 <LoginLink className="p-1 group-data-[light=true]:md:text-white group-data-[sticky=true]:md:text-black" />
-                <CartDrawer />
+                {/* <CartDrawer /> */}
               </div>
               <div className="flex items-center gap-4 md:hidden">
                 <LoginLink className="p-1 group-data-[light=true]:md:text-white" />
-                <CartDrawer />
+                {/* <CartDrawer /> */}
                 <React.Suspense>
                   <HeaderDrawer countryOptions={countryOptions} />
                 </React.Suspense>
