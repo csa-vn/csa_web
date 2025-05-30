@@ -2,7 +2,7 @@ services:
   postgres:
     image: postgres:16
     ports:
-      - 5432:5432
+      - 5433:5432
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 
@@ -45,15 +45,6 @@ services:
       /usr/bin/mc anonymous set public myminio/medusa;
       exit 0;
       "
-
-  meilisearch:
-    image: getmeili/meilisearch:v1.12
-    ports:
-      - 7700:7700
-    volumes:
-      - meili-data:/meili_data
-    environment:
-      MEILI_MASTER_KEY: ${MEILISEARCH_MASTER_KEY}
 
 volumes:
   medusa-postgres-data:

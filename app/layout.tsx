@@ -7,7 +7,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        {/* Remove PayPal provider wrapper if present */}
+        {children}
+      </body>
     </html>
   )
 }

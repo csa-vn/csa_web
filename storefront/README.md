@@ -51,12 +51,7 @@ Features include:
 
 - Full ecommerce support:
   - Product Detail Page
-  - Product Overview Page
-  - Search with Algolia / MeiliSearch
-  - Product Collections
-  - Cart
-  - Checkout with PayPal and Stripe
-  - User Accounts
+  - Checkout with PayPal
   - Order Details
 - Full Next.js 14 support:
   - App Router
@@ -296,6 +291,11 @@ The middleware also sets a cookie based on the onboarding status of a user. This
 - [GitHub](https://github.com/medusajs)
 - [Documentation](https://docs.medusajs.com/)
 
+## Learn more about Next.js
+
+- [Website](https://nextjs.org/)
+- [GitHub](https://github.com/vercel/next.js)
+- [Documentation](https://nextjs.org/docs)
 ## Learn more about Next.js
 
 - [Website](https://nextjs.org/)

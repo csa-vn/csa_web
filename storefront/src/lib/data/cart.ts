@@ -4,7 +4,6 @@ import { HttpTypes } from "@medusajs/types"
 import { revalidateTag } from "next/cache"
 import { redirect } from "next/navigation"
 import { z } from "zod"
-import { PaymentMethod } from "@stripe/stripe-js"
 
 import { sdk } from "@lib/config"
 import medusaError from "@lib/util/medusa-error"
@@ -242,15 +241,6 @@ export async function setPaymentMethod(
     })
     .then((resp) => {
       revalidateTag("cart")
-      return resp
-    })
-    .catch(medusaError)
-}
-
-export async function getPaymentMethod(id: string) {
-  return await sdk.client
-    .fetch<PaymentMethod>(`/store/custom/stripe/get-payment-method/${id}`)
-    .then((resp: PaymentMethod) => {
       return resp
     })
     .catch(medusaError)
