@@ -19,8 +19,8 @@ services:
     ports:
       - "6379:6379"
 
-  meilisearch:
-    image: getmeili/meilisearch:v1.5
+volumes:
+  postgres_data:
     container_name: medusa-meilisearch
     environment:
       MEILI_MASTER_KEY: yoursecretmasterkey

@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 
 import logo from '../../../public/logo.png';
 import { navLinks } from '@/constants';
-import SearchBar from './search/SearchBar';
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -28,20 +27,6 @@ export default function Navbar() {
             </li>
           ))}
         </ul>
-        <div className='search-container'>
-          <button
-            className='search-icon'
-            onClick={() => setShowSearch((prev) => !prev)}
-          >
-            <Image
-              src='/search-icon.svg'
-              alt='Search'
-              width={20}
-              height={20}
-            />
-          </button>
-          {showSearch && <SearchBar />}
-        </div>
       </div>
     </nav>
   );

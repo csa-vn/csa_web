@@ -21,7 +21,6 @@ This starter kit is an ideal solution for developers who need to set up a profes
 - [Quickstart](#quickstart)
   - [Medusa](#medusa)
   - [Storefront](#storefront)
-  - [Meilisearch](#meilisearch)
 
 ## Features
 
@@ -29,7 +28,7 @@ This starter kit is an ideal solution for developers who need to set up a profes
 - **Dynamic Materials and Colors**: Add richness to your product offerings by defining **materials** and **colors** for each product. Colors will be displayed using their corresponding hex codes, and each material can have multiple color options. Customers first select a material, then a color, with dynamic pricing based on their choices.
 - **Customizable Collections**: Easily customize the content and images for each collection. Each product page also features images and a CTA for the collection it belongs to, which can be personalized as well, creating a fully branded shopping experience.
 - **Premade Inspiration Page**: A beautiful, ready-to-use inspiration page helps customers explore the latest trends and styles, showcasing Sofa Society's furniture in real-world settings.
-- **About Page**: Share your brand’s story, values, and commitment to sustainability with a pre-built about page that captures the essence of **Sofa Society**.
+- **About Page**: Share your brand's story, values, and commitment to sustainability with a pre-built about page that captures the essence of **Sofa Society**.
 - **Streamlined Checkout Flow**: The checkout process is designed to be fast, intuitive, and frictionless, providing a seamless shopping experience for your customers from start to finish.
 - **Fully Responsive Design**: Optimized for mobile, tablet, and desktop devices, ensuring a smooth, consistent experience across all platforms.
 - **Payment Integration**: Accept payments effortlessly by integrating **PayPal**. Simply add your PayPal credentials to get started.
@@ -38,7 +37,6 @@ This starter kit is an ideal solution for developers who need to set up a profes
 
 ## Roadmap
 - [x] **Figma Design Template**: This will enable you to easily customize the design of the storefront to match your brand. [View template](https://www.figma.com/community/file/1494273775050024009).
-- [x] **Search**: Integration with Meilisearch for a powerful search experience.
 - [x] **404 Page**: Custom 404 page for a better user experience.
 - [x] **Account Management**: Allow customers to create accounts, view order history, and manage their personal information.
 - [x] **Cart Drawer**: Cart drawer that slides in from the side where customers can view and edit their cart items.
@@ -162,7 +160,6 @@ This starter kit is an ideal solution for developers who need to set up a profes
 - Yarn >= 3.5 for Medusa, Yarn v1 for Storefront
 - Docker and Docker Compose
 - Stripe account (for payments)
-- httpie
 
 ## Quickstart
 
@@ -183,7 +180,7 @@ cp .env.template .env
 yarn install
 
 # Khởi động database và Redis
-docker-compose up -d
+docker compose up -d
 
 # Build project
 yarn build
@@ -231,24 +228,11 @@ Storefront sẽ chạy tại: http://localhost:8000
 4. Copy publishable key
 5. Dán vào file `storefront/.env.local` tại `NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY`
 
-### Meilisearch (Tùy chọn)
-
-Để bật tính năng tìm kiếm:
-
-```bash
-# Lấy search api key
-http --auth "yoursecretmasterkey" --auth-type bearer GET http://localhost:7700/keys
-```
-
-Paste key vào:
-- `storefront/.env.local` → `NEXT_PUBLIC_SEARCH_API_KEY`
-- `medusa/.env` → `MEILISEARCH_API_KEY`
-
 ## Troubleshooting
 
 ### Lỗi thường gặp:
 
-1. **Port đã được sử dụng**: Đảm bảo port 9000, 8000, 5432, 6379, 7700 không bị chiếm
+1. **Port đã được sử dụng**: Đảm bảo port 9000, 8000, 5432, 6379 không bị chiếm
 2. **Docker không chạy**: Khởi động Docker Desktop trước khi chạy `docker-compose up -d`
 3. **Yarn version**: Medusa cần Yarn >= 3.5, Storefront cần Yarn v1
 
