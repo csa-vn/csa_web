@@ -168,65 +168,102 @@ This starter kit is an ideal solution for developers who need to set up a profes
 
 ```bash
 git clone git@github.com:Agilo/fashion-starter.git
+cd fashion-starter
 ```
 
-### Medusa
+### Medusa Backend
 
 ```bash
 cd medusa
 
-# Create the .env file
+# Tạo file môi trường
 cp .env.template .env
 
-# Install dependencies
-yarn
+# Cài đặt dependencies
+yarn install
 
-# Spin up the database and Redis
+# Khởi động database và Redis
 docker-compose up -d
 
-# Build the project
+# Build project
 yarn build
 
-# Run the migrations
+# Chạy migrations
 yarn medusa db:migrate
 
-# Seed the database
+# Seed dữ liệu mẫu
 yarn seed
 
-# Create an user
+# Tạo tài khoản admin
 yarn medusa user -e "admin@medusa.local" -p "supersecret"
 
-# Start the development server
+# Khởi động server phát triển
 yarn dev
 ```
 
-At this point, you should be able to access the Medusa admin at http://localhost:9000/app with the credentials you just created. After logging in, you should go to http://localhost:9000/app/settings/publishable-api-keys, copy the publishable key, and paste it into the `NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY` env variable in the `storefront/.env.local` file.
+Backend sẽ chạy tại: http://localhost:9000
+Admin dashboard: http://localhost:9000/app
 
 ### Storefront
+
+Mở terminal mới:
 
 ```bash
 cd storefront
 
-# Create the .env.local file
+# Tạo file môi trường
 cp .env.template .env.local
 
-# Install dependencies
-yarn
+# Cài đặt dependencies (sử dụng yarn v1 cho storefront)
+yarn install
 
-# Start the development server
+# Khởi động server phát triển
 yarn dev
 ```
 
-You should now be able to access the storefront at http://localhost:8000.
+Storefront sẽ chạy tại: http://localhost:8000
 
-### Meilisearch
+### Cấu hình API Key
+
+1. Truy cập admin dashboard: http://localhost:9000/app
+2. Đăng nhập với: admin@medusa.local / supersecret
+3. Vào Settings > Publishable API Keys
+4. Copy publishable key
+5. Dán vào file `storefront/.env.local` tại `NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY`
+
+### Meilisearch (Tùy chọn)
+
+Để bật tính năng tìm kiếm:
 
 ```bash
-# Get search api key
+# Lấy search api key
 http --auth "yoursecretmasterkey" --auth-type bearer GET http://localhost:7700/keys
 ```
 
-You should go to `storefront/.env.local` file and paste obtained key into the `NEXT_PUBLIC_SEARCH_API_KEY` env variable. Also, go to the `backend/.env` file and paste admin key into `MEILISEARCH_API_KEY`
+Paste key vào:
+- `storefront/.env.local` → `NEXT_PUBLIC_SEARCH_API_KEY`
+- `medusa/.env` → `MEILISEARCH_API_KEY`
+
+## Troubleshooting
+
+### Lỗi thường gặp:
+
+1. **Port đã được sử dụng**: Đảm bảo port 9000, 8000, 5432, 6379, 7700 không bị chiếm
+2. **Docker không chạy**: Khởi động Docker Desktop trước khi chạy `docker-compose up -d`
+3. **Yarn version**: Medusa cần Yarn >= 3.5, Storefront cần Yarn v1
+
+### Kiểm tra services:
+
+```bash
+# Kiểm tra database
+docker ps
+
+# Kiểm tra Medusa backend
+curl http://localhost:9000/store/products
+
+# Kiểm tra Storefront
+curl http://localhost:8000
+```
 
 <a href="https://agilo.com" target="_blank">
   <picture>
